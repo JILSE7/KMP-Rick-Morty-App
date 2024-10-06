@@ -5,8 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import org.jilse.project.ui.screens.Home.tabs.CharactersTabScreen
-import org.jilse.project.ui.screens.Home.tabs.EpisodesTabScreen
+import org.jilse.project.ui.screens.home.tabs.CharactersTabScreen
+import org.jilse.project.ui.screens.home.tabs.EpisodesTabScreen
 
 
 @Composable

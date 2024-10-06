@@ -31,7 +31,7 @@ fun BottomNavigation(navController: NavHostController, items: List<BottomBarItem
                         restoreState = true
                     }
                 },
-                alwaysShowLabel = false
+                alwaysShowLabel = true
 
             )
         }

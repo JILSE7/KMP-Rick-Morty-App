@@ -1,4 +1,4 @@
-package org.jilse.project.ui.screens.Home
+package org.jilse.project.ui.screens.home
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Scaffold
