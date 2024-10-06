@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import org.jilse.project.ui.screens.Home.HomeScreen
+import org.jilse.project.ui.screens.home.HomeScreen
 
 @Composable
 fun NavigationManager() {
