@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import org.jilse.project.domain.models.CharacterModel
 
 @Serializable
-data class CharacterResponse (
+data class CharacterByIdResponse (
     val id: Int,
     val name: String,
     val status: String,

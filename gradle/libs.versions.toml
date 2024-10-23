@@ -29,6 +29,20 @@ ktor = "2.3.12"
 # ViewModel
 viewmodel = "2.8.0"
 
+#Images
+coil = "3.0.0-alpha08"
+
+#Paging3
+paging = "3.3.0-alpha02-0.4.0"
+
+#Date
+kotlinx-datetime="0.6.0"
+
+#ROOM
+room-common = "2.7.0-alpha07"
+ksp = "2.0.20-1.0.24" # [Kotlin-version]-[KSP-version]
+androidx-sqlite-bundle = "2.5.0-alpha07"
+
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -60,6 +74,23 @@ ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlin
 # ViewModel
 viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "viewmodel" }
 
+# Images
+coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-network-ktor = { group = "io.coil-kt.coil3", name = "coil-network-ktor", version.ref = "coil" }
+
+# Paging3
+paging-compose = { module = "app.cash.paging:paging-common", version.ref = "paging" }
+paging-compose-common = { module = "app.cash.paging:paging-compose-common", version.ref = "paging" }
+
+# Date Time
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+
+#ROOM
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room-common" }
+room-runtime-android = { group = "androidx.room", name = "room-runtime-android", version.ref = "room-common" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room-common" }
+androidx-sqlite-bundle = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "androidx-sqlite-bundle" }
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
@@ -69,3 +100,7 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 
 #KTOR
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+#ROOM
+kspCompose = {id = "com.google.devtools.ksp", version.ref = "ksp"}
+#room = {id = "androidx.room", version.ref = "room-common"}

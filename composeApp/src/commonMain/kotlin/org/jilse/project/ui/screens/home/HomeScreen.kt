@@ -1,8 +1,10 @@
 package org.jilse.project.ui.screens.home
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import org.jilse.project.ui.components.BottomNavigation.BottomBarItem
@@ -21,8 +23,8 @@ fun HomeScreen(navController: NavController) {
         bottomBar = {
             BottomNavigation(bottomController, items)
         }
-    ){
-        Box {
+    ){ padding ->
+        Box(modifier = Modifier.padding(padding)) {
             BottomNavigationManager(bottomController)
         }
     }
