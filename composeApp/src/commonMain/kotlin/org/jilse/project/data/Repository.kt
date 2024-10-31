@@ -4,12 +4,18 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
+import org.jilse.project.data.database.RickMortyDatabase
 import org.jilse.project.data.remote.ApiService
 import org.jilse.project.data.remote.paging.CharacterPagingSource
 import org.jilse.project.domain.IRepository
 import org.jilse.project.domain.models.CharacterModel
+import org.jilse.project.domain.models.CharacterOfTheDayModel
 
-class RepositoryImp(private val api: ApiService, private val characterPagingSource: CharacterPagingSource): IRepository {
+class RepositoryImp(
+    private val api: ApiService,
+    private val characterPagingSource: CharacterPagingSource,
+    private val rickMortyDatabase: RickMortyDatabase
+): IRepository {
     companion object {
         const val MAX_ITEMS = 20
         const val PREFETCH_DISTANCE = 5
@@ -23,6 +29,14 @@ class RepositoryImp(private val api: ApiService, private val characterPagingSour
             config = PagingConfig(pageSize = MAX_ITEMS, prefetchDistance = PREFETCH_DISTANCE),
             pagingSourceFactory = { characterPagingSource }
         ).flow
+    }
+
+    override suspend fun getCharacterOfTheDayDB(): CharacterOfTheDayModel? {
+        return rickMortyDatabase.getPreferencesDao().getCharacterOfTheDay()?.toDomain()
+    }
+
+    override suspend fun saveCharacterOfTheDay(character: CharacterOfTheDayModel) {
+        return rickMortyDatabase.getPreferencesDao().saveCharacterOfTheDay(character.toEntity())
     }
 
 }
