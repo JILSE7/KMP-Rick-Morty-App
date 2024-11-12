@@ -7,14 +7,17 @@ import kotlinx.coroutines.flow.Flow
 import org.jilse.project.data.database.RickMortyDatabase
 import org.jilse.project.data.remote.ApiService
 import org.jilse.project.data.remote.paging.CharacterPagingSource
+import org.jilse.project.data.remote.paging.EpisodesPagingSource
 import org.jilse.project.domain.IRepository
 import org.jilse.project.domain.models.CharacterModel
 import org.jilse.project.domain.models.CharacterOfTheDayModel
+import org.jilse.project.domain.models.EpisodeModel
 
 class RepositoryImp(
     private val api: ApiService,
     private val characterPagingSource: CharacterPagingSource,
-    private val rickMortyDatabase: RickMortyDatabase
+    private val episodePagingSource: EpisodesPagingSource,
+    private val rickMortyDatabase: RickMortyDatabase,
 ): IRepository {
     companion object {
         const val MAX_ITEMS = 20
@@ -28,6 +31,13 @@ class RepositoryImp(
         return Pager(
             config = PagingConfig(pageSize = MAX_ITEMS, prefetchDistance = PREFETCH_DISTANCE),
             pagingSourceFactory = { characterPagingSource }
+        ).flow
+    }
+
+    override fun getAllEpisodes(): Flow<PagingData<EpisodeModel>> {
+        return Pager(
+            config = PagingConfig(pageSize = MAX_ITEMS, prefetchDistance = PREFETCH_DISTANCE),
+            pagingSourceFactory = { episodePagingSource }
         ).flow
     }
 

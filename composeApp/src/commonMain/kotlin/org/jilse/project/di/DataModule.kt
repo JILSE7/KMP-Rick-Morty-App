@@ -10,6 +10,7 @@ import kotlinx.serialization.json.Json
 import org.jilse.project.data.RepositoryImp
 import org.jilse.project.data.remote.ApiService
 import org.jilse.project.data.remote.paging.CharacterPagingSource
+import org.jilse.project.data.remote.paging.EpisodesPagingSource
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
@@ -34,4 +35,5 @@ val DataModule = module {
     factoryOf(::ApiService)
     factoryOf(::RepositoryImp)
     factoryOf(::CharacterPagingSource)
+    factoryOf(::EpisodesPagingSource)
 }
