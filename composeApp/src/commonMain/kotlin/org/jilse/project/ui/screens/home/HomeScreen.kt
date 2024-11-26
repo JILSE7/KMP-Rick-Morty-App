@@ -5,14 +5,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import org.jilse.project.ui.components.BottomNavigation.BottomBarItem
 import org.jilse.project.ui.components.BottomNavigation.BottomNavigation
 import org.jilse.project.ui.core.navigation.BottomNavigationManager
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavHostController) {
     val bottomController = rememberNavController()
 
     val items = listOf<BottomBarItem>(
@@ -25,7 +25,7 @@ fun HomeScreen(navController: NavController) {
         }
     ){ padding ->
         Box(modifier = Modifier.padding(padding)) {
-            BottomNavigationManager(bottomController)
+            BottomNavigationManager(bottomController, navController)
         }
     }
 }

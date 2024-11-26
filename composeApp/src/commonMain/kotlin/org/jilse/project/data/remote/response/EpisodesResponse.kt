@@ -43,15 +43,16 @@ data class EpisodeResponse(
     }
 
     private fun getSeasonUrlFromEpisode(season: SeasonEpisode): String {
+        val episode = "https://firebasestorage.googleapis.com/v0/b/snapshot-android.appspot.com/o/videos%2FRoy_%20A%20Life%20Well%20Lived%20_%20Rick%20and%20Morty%20_%20Adult%20Swim.mp4?alt=media&token=af650caf-61ad-4c76-a12d-a36a264649f1"
      return when(season) {
-         SeasonEpisode.SEASON_1 -> "https://www.youtube.com/watch?v=BbAWyGjqgo4"
-         SeasonEpisode.SEASON_2 -> "https://www.youtube.com/watch?v=IUjxvRsMhKc"
-         SeasonEpisode.SEASON_3 -> "https://www.youtube.com/watch?v=RSGCJVhjWnI"
-         SeasonEpisode.SEASON_4 -> "https://www.youtube.com/watch?v=L1qqA2vvKNs"
-         SeasonEpisode.SEASON_5 -> "https://www.youtube.com/watch?v=y2ozacj3xQU"
-         SeasonEpisode.SEASON_6 -> "https://www.youtube.com/watch?v=9etNizOl8oE"
-         SeasonEpisode.SEASON_7 -> "https://www.youtube.com/watch?v=Qr7ghf-SHxQ"
-         SeasonEpisode.UNKNOWN -> "https://www.youtube.com/watch?v=b89CnP0Iq30"
+         SeasonEpisode.SEASON_1 -> episode
+         SeasonEpisode.SEASON_2 -> episode
+         SeasonEpisode.SEASON_3 -> episode
+         SeasonEpisode.SEASON_4 -> episode
+         SeasonEpisode.SEASON_5 -> episode
+         SeasonEpisode.SEASON_6 -> episode
+         SeasonEpisode.SEASON_7 -> episode
+         SeasonEpisode.UNKNOWN -> episode
      }
     }
 }

@@ -48,13 +48,13 @@ import rickmortykmp.composeapp.generated.resources.rickface
 
 @OptIn(KoinExperimentalAPI::class)
 @Composable
-fun CharactersTabScreen() {
+fun CharactersTabScreen(navigateCharacterDetail: (CharacterModel) -> Unit) {
     val characterViewModel = koinViewModel<CharacterViewModel>()
     val state by characterViewModel.state.collectAsState()
     val characters = state.characters.collectAsLazyPagingItems()
 
 
-    CharactersGridList(characters, state.characterOfTheDay)
+    CharactersGridList(characters, state.characterOfTheDay) { navigateCharacterDetail(it) }
 }
 
 
@@ -109,7 +109,7 @@ fun CharacterOfTheDay(character: CharacterModel? = null) {
 
 
 @Composable
-fun CharactersGridList(characters: LazyPagingItems<CharacterModel>, characterOfTheDay: CharacterModel? = null ) {
+fun CharactersGridList(characters: LazyPagingItems<CharacterModel>, characterOfTheDay: CharacterModel? = null, onItemSelected: (character: CharacterModel) -> Unit ) {
     LazyVerticalGrid(
         modifier = Modifier.fillMaxSize().padding(horizontal = 16.dp),
         columns = GridCells.Fixed(2),
@@ -146,7 +146,9 @@ fun CharactersGridList(characters: LazyPagingItems<CharacterModel>, characterOfT
 
                 items(characters.itemCount) { index ->
                     characters[index]?.let { character ->
-                        CharacterGridItem(character)
+                        CharacterGridItem(character){
+                            onItemSelected(it)
+                        }
                     }
                 }
 
@@ -167,7 +169,7 @@ fun CharactersGridList(characters: LazyPagingItems<CharacterModel>, characterOfT
 }
 
 @Composable
-fun CharacterGridItem(character: CharacterModel) {
+fun CharacterGridItem(character: CharacterModel, onItemSelected: (character: CharacterModel) -> Unit) {
     Box(
         modifier = Modifier.clip(RoundedCornerShape(24))
             .border(
@@ -177,7 +179,7 @@ fun CharacterGridItem(character: CharacterModel) {
             )
             .fillMaxWidth()
             .height(150.dp)
-            .clickable { },
+            .clickable {onItemSelected(character) },
         contentAlignment = Alignment.BottomCenter
     ) {
         AsyncImage(

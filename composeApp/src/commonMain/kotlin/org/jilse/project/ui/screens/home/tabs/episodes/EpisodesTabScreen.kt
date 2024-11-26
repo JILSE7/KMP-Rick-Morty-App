@@ -1,17 +1,29 @@
 package org.jilse.project.ui.screens.home.tabs.episodes
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import app.cash.paging.compose.collectAsLazyPagingItems
@@ -20,6 +32,7 @@ import org.jetbrains.compose.resources.painterResource
 import org.jilse.project.domain.models.EpisodeModel
 import org.jilse.project.domain.models.SeasonEpisode
 import org.jilse.project.ui.components.Loaders.PagingLoader
+import org.jilse.project.ui.components.Video.VideoPlayer
 import org.jilse.project.ui.components.Wrappers.PagingType
 import org.jilse.project.ui.components.Wrappers.PagingWrapper
 import org.koin.compose.viewmodel.koinViewModel
@@ -42,7 +55,7 @@ fun EpisodesTabScreen() {
 
     val episodes = state.episodes.collectAsLazyPagingItems()
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize()) {
         PagingWrapper(
             pagingType = PagingType.ROW,
             pagingItems = episodes,
@@ -51,22 +64,50 @@ fun EpisodesTabScreen() {
             },
             emptyView = {},
             itemView = {
-                EpisodeItemList(episode = it)
+                EpisodeItemList(episode = it) { videoUrl ->
+                    episodesViewModel.onPlaySelected(videoUrl)
+                }
             }
         )
+
+        AnimatedVisibility(state.playVideo.isNotBlank()) {
+            ElevatedCard(modifier = Modifier.fillMaxWidth().height(250.dp).padding(16.dp).border(3.dp, Color.Green, CardDefaults.elevatedShape)){
+                Box(modifier = Modifier.background(Color.Black)) {
+
+                    Box(contentAlignment = Alignment.Center, modifier = Modifier.padding(16.dp)) {
+                        VideoPlayer(modifier = Modifier.fillMaxWidth().height(200.dp), videoUrl = state.playVideo)
+                    }
+
+                    Row {
+                        Spacer(modifier = Modifier.weight(1f))
+                        Box(modifier = Modifier.size(30.dp).background(Color.Red).clickable { episodesViewModel.onFinishPlay() }){
+                            Text(text = "X", color = Color.White, modifier = Modifier.align(Alignment.Center))
+                        }
+                    }
+                }
+
+            }
+        }
     }
+
+
+
 
 }
 
 @Composable
-fun EpisodeItemList(episode: EpisodeModel) {
-    Column(modifier = Modifier.width(120.dp).padding(horizontal = 8.dp)) {
+fun EpisodeItemList(episode: EpisodeModel, onEpisodeSelected: (videoUrl: String) -> Unit) {
+    Column(modifier = Modifier.width(120.dp).padding(horizontal = 8.dp).clickable {
+        onEpisodeSelected(episode.videoURL)
+    }) {
+        Text(episode.season.toString())
         Image(
             modifier = Modifier.height(200.dp).fillMaxWidth(),
             contentDescription = episode.name,
             contentScale = ContentScale.Inside,
             painter = painterResource(getSeasonImage(episode.season))
         )
+        Text(episode.name)
     }
 }
 

@@ -17,4 +17,12 @@ class EpisodesViewModel(private val repository: RepositoryImp): ViewModel() {
         _state.update { state -> state.copy(episodes = repository.getAllEpisodes().cachedIn(viewModelScope)) }
     }
 
+    fun onPlaySelected(videoUrl: String) {
+        _state.update { state -> state.copy(playVideo = videoUrl) }
+    }
+
+    fun onFinishPlay() {
+        _state.update { state -> state.copy(playVideo = "") }
+    }
+
 }
