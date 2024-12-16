@@ -24,6 +24,7 @@ fun NavigationManager() {
                 navBackStackEntry.toRoute<CharacterDetail>()
             val characterModel: CharacterModel =
                 Json.decodeFromString<CharacterModel>(characterDetailEncoding.character)
+
             CharacterDetailScreen(characterModel)
         }
     }
